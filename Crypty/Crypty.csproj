@@ -9,13 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\DataModels\" />
     <Folder Include="Models\Tools\" />
-    <Folder Include="Services\IServices\" />
-    <Folder Include="ViewModels\Tools\" />
     <Folder Include="Views\Resources\Assets\" />
     <Folder Include="Views\Dialogs\" />
-    <Folder Include="Views\Pages\" />
     <Folder Include="Views\Resources\Localizations\" />
     <Folder Include="Views\Resources\Styles\" />
     <Folder Include="Views\Resources\Themes\" />
