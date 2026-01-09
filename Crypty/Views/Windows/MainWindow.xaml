@@ -8,5 +8,19 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
 
+        <StackPanel
+            VerticalAlignment="Center">
+            <Button
+                Content="Previews"
+                Height="40"
+                Width="100" Click="Button_Click"/>
+
+            <Button
+                x:Name="button2"
+                Content="Detailed"
+                Height="40"
+                Width="100"
+                Click="button2_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

@@ -4,7 +4,7 @@ namespace Crypty.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        public MainPageViewModel(IConfigurationService configurationService, ICurrencyDataProviderService currencyDataproviderService, INavigationService navigationService) : base(configurationService, currencyDataproviderService, navigationService)
+        public MainPageViewModel(IConfigurationService configurationService, ICoinDataProviderService currencyDataproviderService, INavigationService navigationService) : base(configurationService, currencyDataproviderService, navigationService)
         {
         }
 

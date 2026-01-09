@@ -1,35 +1,37 @@
 ﻿using Crypty.ViewModels.Tools;
+using System.Text.Json.Serialization;
 
 namespace Crypty.Models.DataModels
 {
     public class CoinPreview : ObservableObject
     {
+        [JsonPropertyName("id")]
         public string Id { get; set; } = null!;
+
+        [JsonPropertyName("symbol")]
         public string Symbol { get; set; } = null!;
+
+        [JsonPropertyName("name")]
         public string Name { get; set; } = null!;
 
         private string _iconUrl = null!;
+        [JsonPropertyName("image")]
         public string IconUrl
         {
             get => _iconUrl;
             set => SetProperty(ref _iconUrl, value);
         }
 
-        private decimal _pricaInUsd;
-        public decimal PriceInUSD
+        private decimal _price;
+        [JsonPropertyName("current_price")]
+        public decimal Price
         {
-            get => _pricaInUsd;
-            set => SetProperty(ref _pricaInUsd, value);
-        }
-
-        private decimal _totalVolume;
-        public decimal TotalVolume
-        {
-            get => _totalVolume;
-            set => SetProperty(ref _totalVolume, value);
+            get => _price;
+            set => SetProperty(ref _price, value);
         }
 
         private DateTime _lastTimeUpdate;
+        [JsonPropertyName("last_updated")]
         public DateTime LastUpdatedTime
         {
             get => _lastTimeUpdate;

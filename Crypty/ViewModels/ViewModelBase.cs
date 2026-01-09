@@ -7,9 +7,9 @@ namespace Crypty.ViewModels
     {
         public INavigationService NavigationService { get; }
         public IConfigurationService ConfigurationService { get; }
-        public ICurrencyDataProviderService CurrencyDataproviderService { get; }
+        public ICoinDataProviderService CurrencyDataproviderService { get; }
 
-        public ViewModelBase(IConfigurationService configurationService, ICurrencyDataProviderService currencyDataproviderService, INavigationService navigationService)
+        public ViewModelBase(IConfigurationService configurationService, ICoinDataProviderService currencyDataproviderService, INavigationService navigationService)
         {
             ConfigurationService = configurationService;
             CurrencyDataproviderService = currencyDataproviderService;

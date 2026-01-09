@@ -21,10 +21,12 @@ namespace Crypty
             throw new NotImplementedException();
         }
 
-        override protected void OnStartup(StartupEventArgs e)
+        override async protected void OnStartup(StartupEventArgs e)
         {
             // Service initialization
             IntializeServices();
+
+            IConfigurationService configurationService = ServiceProvider.GetRequiredService<IConfigurationService>();
 
             // Main window initialization
             MainWindow mainWindow = new MainWindow();
@@ -58,7 +60,7 @@ namespace Crypty
             #region Services
 
             serviceCollection.AddSingleton<IConfigurationService, ConfigurationService>();
-            serviceCollection.AddSingleton<ICurrencyDataProviderService, CurrencyDataProviderService>();
+            serviceCollection.AddSingleton<ICoinDataProviderService, CoinDataProviderService>();
             serviceCollection.AddSingleton<INavigationService, NavigationService>();
             #endregion
 
