@@ -5,22 +5,241 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crypty"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        x:Name="mainWindow"
+        Background="{DynamicResource BackgroundBrush}"
+        StateChanged="mainWindow_StateChanged">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            CaptionHeight="30" 
+            ResizeBorderThickness="5"/>
+    </WindowChrome.WindowChrome>
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <StackPanel
-            VerticalAlignment="Center">
-            <Button
-                Content="Previews"
-                Height="40"
-                Width="100" Click="Button_Click"/>
+        <!--TitleBar-->
+        <Border
+            Grid.Row="0"
+            Background="{DynamicResource Titlebar.BackgroundBrush}">
 
-            <Button
-                x:Name="button2"
-                Content="Detailed"
-                Height="40"
-                Width="100"
-                Click="button2_Click"/>
-        </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Menu Button-->
+                <Button
+                    Grid.Column="0"
+                    FontSize="11"
+                    WindowChrome.IsHitTestVisibleInChrome="True"
+                    Style="{DynamicResource TitleBarButtonStyle}"
+                    Content="&#xE700;">
+
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimationUsingKeyFrames  Storyboard.TargetName="menuPanel" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                                            <EasingThicknessKeyFrame KeyTime="0:0:0.1" Value="0,0,0,0"/>
+                                        </ThicknessAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="10,0,0,0"
+                    Orientation="Horizontal">
+
+                    <!--Title text-->
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontWeight="SemiBold"
+                        FontSize="13"
+                        Text="Crypty"
+                        Foreground="{DynamicResource Titlebar.Title.ForegroundBrush}"/>
+                </StackPanel>
+
+                <!--Minimize button-->
+                <Button
+                    x:Name="minimizeBtn"
+                    Grid.Column="2"
+                    WindowChrome.IsHitTestVisibleInChrome="True"
+                    Style="{DynamicResource TitleBarButtonStyle}"
+                    Content="&#xE949;"
+                    Click="minimizeBtn_Click"/>
+
+                <!--Maximize button-->
+                <Button
+                    x:Name="maximizeBtn"
+                    Grid.Column="3"
+                    WindowChrome.IsHitTestVisibleInChrome="True"
+                    Style="{DynamicResource TitleBarButtonStyle}"
+                    Content="&#xE739;"
+                    Click="maximizeBtn_Click"/>
+
+                <!--Restore button-->
+                <Button
+                    x:Name="restoreBtn"
+                    Grid.Column="4"
+                    WindowChrome.IsHitTestVisibleInChrome="True"
+                    Style="{DynamicResource TitleBarButtonStyle}"
+                    Content="&#xE923;"
+                    Click="restoreBtn_Click"/>
+
+                <!--Close button-->
+                <Button
+                    x:Name="closeBtn"
+                    Grid.Column="5"
+                    WindowChrome.IsHitTestVisibleInChrome="True"
+                    Style="{DynamicResource TitleBarButtonStyle}"
+                    Content="&#xE106;" 
+                    Click="closeBtn_Click"/>
+            </Grid>
+        </Border>
+
+        <Frame
+            Grid.Row="1"
+            x:Name="rootFrame"/>
+
+        <!--Menu panel-->
+        <Border
+            x:Name="menuPanel"
+            Grid.RowSpan="2"
+            Width="200"
+            Margin="-200,0,0,0"
+            HorizontalAlignment="Left"
+            Background="{DynamicResource MenuPanel.BackgroundBrush}">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <StackPanel
+                    VerticalAlignment="Center">
+                    <TextBlock
+                        Text="Crypty"
+                        Foreground="{DynamicResource Titlebar.Title.ForegroundBrush}"
+                        Margin="10,0,0,0"
+                        FontWeight="SemiBold"/>
+                </StackPanel>
+
+                <Button
+                    HorizontalAlignment="Right"
+                    Style="{DynamicResource TitleBarButtonStyle}"
+                    WindowChrome.IsHitTestVisibleInChrome="True"
+                    Content="&#xE106;">
+
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimationUsingKeyFrames  Storyboard.TargetName="menuPanel" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                                            <EasingThicknessKeyFrame KeyTime="0:0:0.1" Value="-200,0,0,0"/>
+                                        </ThicknessAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+
+                <Grid
+                    Grid.Row="1">
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+
+
+                        <Button
+                            Style="{DynamicResource MenuButtonStyle}"
+                            Margin="0,0,5,0"
+                            Width="auto">
+
+                            <StackPanel
+                                Margin="5,0,5,0"
+                                Orientation="Horizontal">
+
+                                <Image
+                                    Width="20"
+                                    Source="/Views/Resources/Assets/dark.png"/>
+
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Margin="5,0,0,0"
+                                    Text="Dark theme"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button
+                            Width="auto"
+                            Style="{DynamicResource MenuButtonStyle}">
+
+                            <StackPanel
+                                Margin="5,0,5,0"
+                                Orientation="Horizontal">
+
+                                <Image
+                                    Width="20"
+                                    Source="/Views/Resources/Assets/light.png"/>
+
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Margin="5,0,0,0"
+                                    Text="Dark theme"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <!--Language selection-->
+                    <StackPanel
+                        Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+
+                        <Button
+                            Style="{DynamicResource MenuButtonStyle}"
+                            Margin="0,0,5,0"
+                            Content="ENG"/>
+
+                        <Button
+                            Style="{DynamicResource MenuButtonStyle}"
+                            Margin="0,0,5,0"
+                            Content="УКР"/>
+
+                        <Button
+                            Style="{DynamicResource MenuButtonStyle}"
+                            Margin="0,0,5,0"
+                            Content="РУС"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

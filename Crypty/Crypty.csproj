@@ -9,17 +9,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Resources\Assets\dark.png" />
+    <None Remove="Views\Resources\Assets\light.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Models\Tools\" />
     <Folder Include="Views\Converters\" />
-    <Folder Include="Views\Resources\Assets\" />
     <Folder Include="Views\Dialogs\" />
     <Folder Include="Views\Resources\Localizations\" />
-    <Folder Include="Views\Resources\Styles\" />
-    <Folder Include="Views\Resources\Themes\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\Resources\Assets\dark.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\Resources\Assets\light.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

@@ -6,9 +6,110 @@
       xmlns:local="clr-namespace:Crypty.Views.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MainPage">
+      Title="MainPage"
+      Background="{DynamicResource BackgroundBrush}">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--Search Bar-->
+        <TextBox
+            Margin="7,0,7,0"
+            Style="{DynamicResource SearchBarStyle}"/>
+
+        <ListBox
+            Grid.Row="1"
+            Background="Transparent"
+            BorderThickness="0">
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Height" Value="60"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Margin" Value="7,0,7,0"/>
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border
+                                    x:Name="border"
+                                    CornerRadius="10"
+                                    Background="{TemplateBinding Background}">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="60"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Icon-->
+                                        <Image
+                                            Grid.Column="0"
+                                            Width="35"
+                                            Source="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"/>
+
+                                        <!--Name & Symbol-->
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Orientation="Horizontal">
+
+                                            <TextBlock
+                                                Foreground="{DynamicResource CoinListItem.Name.ForegroundBrush}"
+                                                FontSize="17"
+                                                FontWeight="Bold"
+                                                VerticalAlignment="Center"
+                                                Text="Bitcoin"/>
+
+                                            <TextBlock
+                                                Foreground="{DynamicResource CoinListItem.Symbol.ForegroundBrush}"
+                                                VerticalAlignment="Center"
+                                                Margin="10,2,0,0"
+                                                Text="BTC"
+                                                FontWeight="SemiBold"
+                                                FontSize="13.5"/>
+                                        </StackPanel>
+                                        
+                                        <!--Price-->
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Foreground="{DynamicResource CoinListItem.Price.ForegroundBrush}"
+                                            Grid.Column="3"
+                                            FontWeight="Regular"
+                                            FontSize="15">
+                                            
+                                            <Run Text="$"/>
+                                            <Run Text="90,517.14"/>
+                                        </TextBlock>
+
+                                        <!--Last updated date-->
+                                        <TextBlock
+                                            Grid.Column="4"
+                                            Foreground="{DynamicResource CoinListItem.Date.ForegroundBrush}"
+                                            FontSize="13"
+                                            Margin="50,0,20,0"
+                                            VerticalAlignment="Center"
+                                            Text="10.01.2026, 12:57 AM"/>
+                                    </Grid>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" TargetName="border" Value="{DynamicResource CoinListItem.Hover.BackgroundBrush}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBoxItem/>
+        </ListBox>
     </Grid>
 </Page>

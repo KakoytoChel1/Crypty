@@ -18,7 +18,7 @@ namespace Crypty
 
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         override async protected void OnStartup(StartupEventArgs e)
