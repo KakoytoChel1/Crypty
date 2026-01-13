@@ -14,8 +14,6 @@ namespace Crypty
 
             maximizeBtn.Visibility = Visibility.Visible;
             restoreBtn.Visibility = Visibility.Collapsed;
-
-            rootFrame.Navigate(App.ServiceProvider.GetRequiredService<MainPage>());
         }
 
         private void closeBtn_Click(object sender, RoutedEventArgs e)

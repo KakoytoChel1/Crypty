@@ -87,6 +87,7 @@
                 <Button
                     x:Name="maximizeBtn"
                     Grid.Column="3"
+                    FontSize="8"
                     WindowChrome.IsHitTestVisibleInChrome="True"
                     Style="{DynamicResource TitleBarButtonStyle}"
                     Content="&#xE739;"
@@ -96,6 +97,7 @@
                 <Button
                     x:Name="restoreBtn"
                     Grid.Column="4"
+                    FontSize="8"
                     WindowChrome.IsHitTestVisibleInChrome="True"
                     Style="{DynamicResource TitleBarButtonStyle}"
                     Content="&#xE923;"
@@ -211,7 +213,7 @@
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Margin="5,0,0,0"
-                                    Text="Dark theme"/>
+                                    Text="Light theme"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>

@@ -3,9 +3,9 @@
 
 
     <Style x:Key="TitleBarButtonStyle" TargetType="Button">
-        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
         <Setter Property="Width" Value="30"/>
-        <Setter Property="FontSize" Value="8"/>
+        <Setter Property="FontSize" Value="10"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{DynamicResource Titlebar.Button.ForegroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
@@ -27,7 +27,7 @@
     </Style>
 
     <Style x:Key="SearchButtonStyle" TargetType="Button">
-        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
         <Setter Property="Width" Value="30"/>
         <Setter Property="FontSize" Value="8"/>
         <Setter Property="Background" Value="{DynamicResource SearchBar.BackgroundBrush}"/>
@@ -70,6 +70,57 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="{DynamicResource MenuPanel.LanguageButton.Hover.BackgroundBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
+        <Setter Property="FontSize" Value="8"/>
+        <Setter Property="Background" Value="{DynamicResource PrimaryColorBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Titlebar.Button.ForegroundBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource PrimaryHoverColorBrush}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource PrimaryColorBrush}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DefaultButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="8"/>
+        <Setter Property="Background" Value="#202020"/>
+        <Setter Property="Foreground" Value="{DynamicResource Titlebar.Button.ForegroundBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Opacity" Value="0.7"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Opacity" Value="1"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

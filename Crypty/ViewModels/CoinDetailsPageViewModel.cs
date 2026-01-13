@@ -2,9 +2,9 @@
 
 namespace Crypty.ViewModels
 {
-    internal class CoinDetailsPageViewModel : ViewModelBase
+    public class CoinDetailsPageViewModel : ViewModelBase
     {
-        public CoinDetailsPageViewModel(IConfigurationService configurationService, ICoinDataProviderService currencyDataproviderService, INavigationService navigationService) : base(configurationService, currencyDataproviderService, navigationService)
+        public CoinDetailsPageViewModel(IConfigurationService configurationService, ICoinDataProviderService currencyDataproviderService, INavigationService navigationService, AppState appState) : base(configurationService, currencyDataproviderService, navigationService, appState)
         {
         }
 

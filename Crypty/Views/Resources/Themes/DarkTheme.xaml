@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <SolidColorBrush x:Key="PrimaryColorBrush" Color="#405de6"/>
+    <SolidColorBrush x:Key="PrimaryHoverColorBrush" Color="#4d67e3"/>
 
     <SolidColorBrush x:Key="Titlebar.BackgroundBrush" Color="#161616"/>
     <SolidColorBrush x:Key="Titlebar.Button.ForegroundBrush" Color="#ffffff"/>
@@ -15,7 +16,7 @@
     <SolidColorBrush x:Key="CoinListItem.Hover.BackgroundBrush" Color="#1c1c1c"/>
     <SolidColorBrush x:Key="SearchBar.BackgroundBrush" Color="#1c1c1c"/>
 
-    <SolidColorBrush x:Key="ContentCard.BackgroundBrush" Color="#1c1c1c"/>
+    <SolidColorBrush x:Key="ContentCard.BackgroundBrush" Color="#1c1c1c" Opacity="0.8"/>
 
     <SolidColorBrush x:Key="SearchBar.Hint.ForegroundBrush" Color="#808080"/>
     <SolidColorBrush x:Key="SearchBar.Text.ForegroundBrush" Color="#ffffff"/>
@@ -32,7 +33,8 @@
     <SolidColorBrush x:Key="CoinItemDetails.Volume.ForegroundBrush" Color="#ffffff"/>
     <SolidColorBrush x:Key="CoinItemDetails.Price.ForegroundBrush" Color="#ffffff"/>
     <SolidColorBrush x:Key="CoinItemDetails.About.Header.ForegroundBrush" Color="#ffffff"/>
-    <SolidColorBrush x:Key="CoinItemDetails.About.Text.ForegroundBrush" Color="#ffffff"/>
+    <SolidColorBrush x:Key="CoinItemDetails.About.Text.ForegroundBrush" Color="#808080"/>
+    <SolidColorBrush x:Key="CoinDetails.About.OpenDescButton.BackgroundBrush" Color="#2b2b2b"/>
 
     <SolidColorBrush x:Key="CoinItemDetails.Price.GoUp.Brush" Color="#00803A"/>
     <SolidColorBrush x:Key="CoinItemDetails.Price.GoDown.Brush" Color="#F53838"/>
@@ -40,8 +42,9 @@
     <SolidColorBrush x:Key="CoinItemDetails.TickerItem.Hover.BackgroundBrush" Color="#1a1a1a"/>
     <SolidColorBrush x:Key="CoinItemDetails.TickerItem.Name.ForegroundBrush" Color="#ffffff"/>
     <SolidColorBrush x:Key="CoinItemDetails.TickerItem.CurrencyPair.ForegroundBrush" Color="#808080"/>
-    <SolidColorBrush x:Key="CoinItemDetails.TickerItem.LastPriceInTarget.ForegroundBrush" Color="#ffffff"/>
-    <SolidColorBrush x:Key="CoinItemDetails.TickerItem.VolumeInBase.ForegroundBrush" Color="#ffffff"/>
+    <SolidColorBrush x:Key="CoinItemDetails.TickerItem.LastPrice.ForegroundBrush" Color="#ffffff"/>
+    <SolidColorBrush x:Key="CoinItemDetails.TickerItem.Volume.ForegroundBrush" Color="#ffffff"/>
     <SolidColorBrush x:Key="CoinItemDetails.TickerItem.ColumnHeader.ForegroundBrush" Color="#808080"/>
+    <SolidColorBrush x:Key="CoinItemDetails.TickerItem.LinkButton.BackgroundBrush" Color="#1c1c1c"/>
 
 </ResourceDictionary>

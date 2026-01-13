@@ -18,12 +18,15 @@
         <!--Search Bar-->
         <TextBox
             Margin="7,0,7,0"
+            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
             Style="{DynamicResource SearchBarStyle}"/>
 
         <ListBox
+            x:Name="coinListBox"
             Grid.Row="1"
             Background="Transparent"
-            BorderThickness="0">
+            BorderThickness="0"
+            ItemsSource="{Binding CoinPreviews}">
 
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
@@ -52,7 +55,7 @@
                                         <Image
                                             Grid.Column="0"
                                             Width="35"
-                                            Source="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"/>
+                                            Source="{Binding IconUrl}"/>
 
                                         <!--Name & Symbol-->
                                         <StackPanel
@@ -64,17 +67,17 @@
                                                 FontSize="17"
                                                 FontWeight="Bold"
                                                 VerticalAlignment="Center"
-                                                Text="Bitcoin"/>
+                                                Text="{Binding Name}"/>
 
                                             <TextBlock
                                                 Foreground="{DynamicResource CoinListItem.Symbol.ForegroundBrush}"
                                                 VerticalAlignment="Center"
                                                 Margin="10,2,0,0"
-                                                Text="BTC"
+                                                Text="{Binding Symbol}"
                                                 FontWeight="SemiBold"
                                                 FontSize="13.5"/>
                                         </StackPanel>
-                                        
+
                                         <!--Price-->
                                         <TextBlock
                                             VerticalAlignment="Center"
@@ -84,7 +87,7 @@
                                             FontSize="15">
                                             
                                             <Run Text="$"/>
-                                            <Run Text="90,517.14"/>
+                                            <Run Text="{Binding Price}"/>
                                         </TextBlock>
 
                                         <!--Last updated date-->
@@ -94,7 +97,7 @@
                                             FontSize="13"
                                             Margin="50,0,20,0"
                                             VerticalAlignment="Center"
-                                            Text="10.01.2026, 12:57 AM"/>
+                                            Text="{Binding LastUpdatedTime}"/>
                                     </Grid>
                                 </Border>
 
@@ -108,8 +111,6 @@
                     </Setter>
                 </Style>
             </ListBox.ItemContainerStyle>
-
-            <ListBoxItem/>
         </ListBox>
     </Grid>
 </Page>

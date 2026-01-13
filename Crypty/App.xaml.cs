@@ -27,10 +27,15 @@ namespace Crypty
             IntializeServices();
 
             IConfigurationService configurationService = ServiceProvider.GetRequiredService<IConfigurationService>();
+            INavigationService navigationService = ServiceProvider.GetRequiredService<INavigationService>();
 
             // Main window initialization
             MainWindow mainWindow = new MainWindow();
+            navigationService.InitializeRootFrame(mainWindow.rootFrame); // Setting up root frame
             mainWindow.Show();
+
+            // Navigate to main page
+            navigationService.ChangePage<MainPage>();
 
             base.OnStartup(e);
         }

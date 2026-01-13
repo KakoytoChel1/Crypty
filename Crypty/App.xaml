@@ -7,7 +7,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Views/Resources/Styles/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="Views/Resources/Styles/TextBoxStyles.xaml"/>
-                <ResourceDictionary Source="Views/Resources/Styles/ListItemStyles.xaml"/>
+                <ResourceDictionary Source="Views/Resources/Styles/ListStyles.xaml"/>
 
                 <ResourceDictionary Source="Views/Resources/Themes/DarkTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
