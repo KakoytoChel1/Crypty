@@ -28,20 +28,20 @@ namespace Crypty.Models.DataModels
             set => SetProperty(ref _market, value);
         }
 
-        private decimal _lastTradedPriceInTarget;
-        [JsonPropertyName("last")]
-        public decimal LastTradedPriceInTarget
+        private Dictionary<string, decimal> _lastTradedPriceData = null!;
+        [JsonPropertyName("converted_last")]
+        public Dictionary<string, decimal> LastTradedPriceData
         {
-            get => _lastTradedPriceInTarget; 
-            set => SetProperty(ref _lastTradedPriceInTarget, value);
+            get => _lastTradedPriceData; 
+            set => SetProperty(ref _lastTradedPriceData, value);
         }
 
-        private decimal _lastTradedVolumeInTarget;
-        [JsonPropertyName("volume")]
-        public decimal TotalVolumeInTarget
+        private Dictionary<string, decimal> _lastTradedVolumeData = null!;
+        [JsonPropertyName("converted_volume")]
+        public Dictionary<string, decimal> TotalVolumeData
         {
-            get => _lastTradedVolumeInTarget;
-            set => SetProperty(ref _lastTradedVolumeInTarget, value);
+            get => _lastTradedVolumeData;
+            set => SetProperty(ref _lastTradedVolumeData, value);
         }
 
         private string _tradePlatformUrl = null!;

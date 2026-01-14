@@ -47,12 +47,20 @@ namespace Crypty.Models.DataModels
             set => SetProperty(ref _tickers, value);
         }
 
-        private List<List<double>> _coinHistory = null!;
+        private ObservableCollection<HistoryPoint> _coinHistoryPer24h = null!;
         [JsonIgnore]
-        public List<List<double>> CoinHistory
+        public ObservableCollection<HistoryPoint> CoinHistoryPer24h
         {
-            get => _coinHistory;
-            set => SetProperty(ref _coinHistory, value);
+            get => _coinHistoryPer24h;
+            set => SetProperty(ref _coinHistoryPer24h, value);
+        }
+
+        private ObservableCollection<HistoryPoint> _coinHistoryPer7d = null!;
+        [JsonIgnore]
+        public ObservableCollection<HistoryPoint> CoinHistoryPer7d
+        {
+            get => _coinHistoryPer7d;
+            set => SetProperty(ref _coinHistoryPer7d, value);
         }
     }
 }

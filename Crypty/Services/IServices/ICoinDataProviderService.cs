@@ -6,8 +6,8 @@ namespace Crypty.Services.IServices
     {
         public Task<List<CoinPreview>?> GetTopPopularCoinPreviewsAsync(int number);
 
-        public Task<CoinDetails?> GetCoinDataById(string coinId);
+        public Task<CoinDetails?> GetCoinDataByIdAsync(string coinId);
 
-        public string GetCoinHistory(string coinId, int days);
+        public Task<List<HistoryPoint>?> GetCoinHistory(string coinId, int days);
     }
 }

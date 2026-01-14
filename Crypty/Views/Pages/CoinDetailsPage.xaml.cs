@@ -5,10 +5,20 @@ namespace Crypty.Views.Pages
 {
     public partial class CoinDetailsPage : Page
     {
+        private readonly CoinDetailsPageViewModel _viewModel;
+
         public CoinDetailsPage(CoinDetailsPageViewModel coinDetailsPageViewModel)
         {
             InitializeComponent();
-            DataContext = coinDetailsPageViewModel;
+            _viewModel = coinDetailsPageViewModel;
+            DataContext = _viewModel;
+
+            this.Loaded += CoinDetailsPage_Loaded;
+        }
+
+        private void CoinDetailsPage_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _viewModel.RequestAndLoadDataCommand.Execute(null);
         }
     }
 }

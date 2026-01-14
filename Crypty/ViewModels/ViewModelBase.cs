@@ -7,13 +7,13 @@ namespace Crypty.ViewModels
     {
         public INavigationService NavigationService { get; }
         public IConfigurationService ConfigurationService { get; }
-        public ICoinDataProviderService CurrencyDataproviderService { get; }
+        public ICoinDataProviderService CoinDataProviderService { get; }
         public AppState ApplicationState { get; }
 
-        public ViewModelBase(IConfigurationService configurationService, ICoinDataProviderService currencyDataproviderService, INavigationService navigationService, AppState appState)
+        public ViewModelBase(IConfigurationService configurationService, ICoinDataProviderService coinDataproviderService, INavigationService navigationService, AppState appState)
         {
             ConfigurationService = configurationService;
-            CurrencyDataproviderService = currencyDataproviderService;
+            CoinDataProviderService = coinDataproviderService;
             NavigationService = navigationService;
             ApplicationState = appState;
         }

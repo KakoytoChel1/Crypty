@@ -5,10 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Crypty.Views.Pages"
       xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+      xmlns:vm="clr-namespace:Crypty.ViewModels"
+      xmlns:converters="clr-namespace:Crypty.Views.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="800"
       Title="CoinDetailsPage"
+      d:DataContext="{d:DesignInstance Type=vm:CoinDetailsPageViewModel, IsDesignTimeCreatable=False}"
       Background="{DynamicResource BackgroundBrush}">
+
+    <Page.Resources>
+        <converters:CoinMarketDataConverter x:Key="CoinMarketDataConverter"/>
+        <converters:CoinPercentageChangeConverter x:Key="CoinPercentageChangeConverter"/>
+        <converters:TickerMarketDataConverter x:Key="TickerMarketDataConverter"/>
+        <converters:CoinDescriptionLanguageSelectConverter x:Key="CoinDescriptionLanguageSelectConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -45,7 +55,7 @@
                     <Image
                         Grid.Column="0"
                         Width="45"
-                        Source="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"/>
+                        Source="{Binding SelectedCoinDetails.CoinImage.Large}"/>
 
                     <!--Name & Symbol-->
                     <StackPanel
@@ -56,27 +66,29 @@
                         <TextBlock
                             FontWeight="SemiBold"
                             FontSize="21"
-                            Text="Bitcoin"
+                            Text="{Binding SelectedCoinDetails.Name}"
                             Foreground="{DynamicResource CoinItemDetails.Name.ForegroundBrush}"/>
 
                         <TextBlock
                             FontSize="15"
                             Foreground="{DynamicResource CoinItemDetails.Symbol.ForegroundBrush}"
-                            Text="BTC"
+                            Text="{Binding SelectedCoinDetails.Symbol}"
                             VerticalAlignment="Center"
                             Margin="10,2,0,0"/>
                     </StackPanel>
 
                     <Button
                         Grid.Column="2"
-                        Margin="10,0,0,0"
+                        Margin="0,0,10,0"
                         Style="{DynamicResource DefaultButtonStyle}"
                         Height="30"
                         Width="40"
+                        HorizontalAlignment="Right"
                         FontFamily="Segoe Fluent Icons"
                         Content="&#xE72B;"
                         FontSize="12"
-                        ToolTip="Go back"/>
+                        ToolTip="Go back"
+                        Command="{Binding GoBackCommand}"/>
                 </Grid>
             </Border>
 
@@ -92,29 +104,50 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
 
-
                     <!--24h-->
                     <StackPanel
                         Orientation="Horizontal">
 
-                        <Polygon 
-                            Points="0,0 3,6 6,0"
-                            Fill="{DynamicResource CoinItemDetails.Price.GoDown.Brush}"
-                            Stroke="{DynamicResource CoinItemDetails.Price.GoDown.Brush}"
-                            StrokeThickness="3"
-                            StrokeLineJoin="Round"
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"
-                            Margin="0,4,0,0">
-                        </Polygon>
+                        <StackPanel.Resources>
+                            <Style TargetType="Polygon">
+                                <Setter Property="Points" Value="0,0 3,6 6,0"/>
+                                <Setter Property="StrokeLineJoin" Value="Round"/>
+                                <Setter Property="StrokeThickness" Value="3"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Margin" Value="0,3,0,0"/>
+                                <Setter Property="Fill" Value="{DynamicResource CoinItemDetails.Price.GoDown.Brush}"/>
+                                <Setter Property="Stroke" Value="{DynamicResource CoinItemDetails.Price.GoDown.Brush}"/>
 
-                        <TextBlock
-                            Margin="7,0,0,0"
-                            FontWeight="SemiBold"
-                            FontSize="13"
-                            VerticalAlignment="Center"
-                            Foreground="{DynamicResource CoinItemDetails.Price.GoDown.Brush}">
-                            <Run Text="0.7"/><Run Text="% (24h)"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedCoinDetails.MarketData.PriceChangePercentage24h, Converter={StaticResource CoinPercentageChangeConverter}}" Value="True">
+                                        <Setter Property="Points" Value="0,6 3,0 6,6"/>
+                                        <Setter Property="Fill" Value="{DynamicResource CoinItemDetails.Price.GoUp.Brush}"/>
+                                        <Setter Property="Stroke" Value="{DynamicResource CoinItemDetails.Price.GoUp.Brush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="7,0,0,0"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Foreground" Value="{DynamicResource CoinItemDetails.Price.GoDown.Brush}"/>
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedCoinDetails.MarketData.PriceChangePercentage24h, Converter={StaticResource CoinPercentageChangeConverter}}" Value="True">
+                                        <Setter Property="Foreground" Value="{DynamicResource CoinItemDetails.Price.GoUp.Brush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+
+                        </StackPanel.Resources>
+
+                        <Polygon/>
+
+                        <TextBlock>
+                            <Run Text="{Binding SelectedCoinDetails.MarketData.PriceChangePercentage24h, StringFormat={}{0:F3}}"/><Run Text="% (24h)"/>
                         </TextBlock>
                     </StackPanel>
 
@@ -123,23 +156,45 @@
                         Orientation="Horizontal"
                         Margin="15,0,0,0">
 
-                        <Polygon 
-                            Points="0,6 3,0 6,6"
-                            Fill="{DynamicResource CoinItemDetails.Price.GoUp.Brush}"
-                            Stroke="{DynamicResource CoinItemDetails.Price.GoUp.Brush}"
-                            StrokeThickness="4"
-                            StrokeLineJoin="Round"
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"
-                            Margin="0,3,0,0">
-                        </Polygon>
+                        <StackPanel.Resources>
+                            <Style TargetType="Polygon">
+                                <Setter Property="Points" Value="0,0 3,6 6,0"/>
+                                <Setter Property="StrokeLineJoin" Value="Round"/>
+                                <Setter Property="StrokeThickness" Value="3"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Margin" Value="0,3,0,0"/>
+                                <Setter Property="Fill" Value="{DynamicResource CoinItemDetails.Price.GoDown.Brush}"/>
+                                <Setter Property="Stroke" Value="{DynamicResource CoinItemDetails.Price.GoDown.Brush}"/>
 
-                        <TextBlock
-                            Margin="7,0,0,0"
-                            FontWeight="SemiBold"
-                            FontSize="13"
-                            Foreground="{DynamicResource CoinItemDetails.Price.GoUp.Brush}">
-                            <Run Text="0.4"/><Run Text="% (7d)"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedCoinDetails.MarketData.PriceChangePercentage7d, Converter={StaticResource CoinPercentageChangeConverter}}" Value="True">
+                                        <Setter Property="Points" Value="0,6 3,0 6,6"/>
+                                        <Setter Property="Fill" Value="{DynamicResource CoinItemDetails.Price.GoUp.Brush}"/>
+                                        <Setter Property="Stroke" Value="{DynamicResource CoinItemDetails.Price.GoUp.Brush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="7,0,0,0"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="FontSize" Value="13"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Foreground" Value="{DynamicResource CoinItemDetails.Price.GoDown.Brush}"/>
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedCoinDetails.MarketData.PriceChangePercentage7d, Converter={StaticResource CoinPercentageChangeConverter}}" Value="True">
+                                        <Setter Property="Foreground" Value="{DynamicResource CoinItemDetails.Price.GoUp.Brush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <Polygon/>
+
+                        <TextBlock>
+                            <Run Text="{Binding SelectedCoinDetails.MarketData.PriceChangePercentage7d,StringFormat={}{0:F3}}"/><Run Text="% (7d)"/>
                         </TextBlock>
                     </StackPanel>
                 </StackPanel>
@@ -168,13 +223,15 @@
                             Text="Price:">
                         </TextBlock>
 
+                        <!--Price-->
                         <TextBlock
                             Grid.Column="1"
-                            Text="$90,587.35"
                             HorizontalAlignment="Right"
                             Margin="0,0,20,0"
                             FontSize="14"
-                            Foreground="{DynamicResource CoinItemDetails.Price.ForegroundBrush}"/>
+                            Foreground="{DynamicResource CoinItemDetails.Price.ForegroundBrush}">
+                            <Run Text="$"/><Run Text="{Binding SelectedCoinDetails.MarketData.CurrentPriceData, Converter={StaticResource CoinMarketDataConverter}, StringFormat={}{0:N3}}"/>
+                        </TextBlock>
                     </Grid>
 
                     <Grid
@@ -191,13 +248,15 @@
                             Foreground="#808080"
                             Text="Volume (24h):"/>
 
+                        <!--Volume-->
                         <TextBlock
                             Grid.Column="1"
-                            Text="$43,245,487,971"
                             HorizontalAlignment="Right"
                             Margin="0,0,20,0"
                             FontSize="14"
-                            Foreground="{DynamicResource CoinItemDetails.Volume.ForegroundBrush}"/>
+                            Foreground="{DynamicResource CoinItemDetails.Volume.ForegroundBrush}">
+                            <Run Text="$"/><Run Text="{Binding SelectedCoinDetails.MarketData.TotalVolumeData, Converter={StaticResource CoinMarketDataConverter}, StringFormat=N0}"/>
+                        </TextBlock>
                     </Grid>
                 </StackPanel>
             </Border>
@@ -241,16 +300,8 @@
                         TextWrapping="Wrap"
                         FontSize="14"
                         FontWeight="Light"
-                        Margin="10,5,10,5">
-
-                        About Bitcoin (BTC)
-Bitcoin is the world's first decentralized cryptocurrency that enables peer-to-peer electronic cash transactions without intermediaries like banks or governments.
-
-Bitcoin operates on a blockchain secured by proof-of-work mining and the SHA-256 cryptographic algorithm, making it virtually impossible to counterfeit or double-spend.
-
-With a fixed supply cap of 21 million coins and programmatic halvings every four years, Bitcoin is designed as a deflationary digital asset often called "digital gold."
-
-Bitcoin has achieved mainstream adoption through spot ETF approvals, corporate treasury holdings, and acceptance by governments and institutions worldwide.
+                        Margin="10,5,10,5"
+                        Text="{Binding SelectedCoinDetails.DescriptionData, Converter={StaticResource CoinDescriptionLanguageSelectConverter}}">
                     </TextBox>
                 </Grid>
             </Border>
@@ -278,7 +329,8 @@ Bitcoin has achieved mainstream adoption through spot ETF approvals, corporate t
                         FontFamily="Segoe Fluent Icons"
                         Content="&#xE72C;"
                         FontSize="15"
-                        ToolTip="Refresh coin data"/>
+                        ToolTip="Refresh coin data"
+                        Command="{Binding RefreshDataCommmand}"/>
 
                     <Border
                         Background="#27292d"
@@ -300,7 +352,8 @@ Bitcoin has achieved mainstream adoption through spot ETF approvals, corporate t
                             Content="24h"
                             FontSize="13"
                             FontWeight="SemiBold"
-                            ToolTip="24h chart period"/>
+                            ToolTip="24h chart period"
+                            Command="{Binding Select24hChartModeCommmand}"/>
 
                         <Button
                             Margin="5,0,0,0"
@@ -310,7 +363,8 @@ Bitcoin has achieved mainstream adoption through spot ETF approvals, corporate t
                             Content="7d"
                             FontSize="13"
                             ToolTip="7d chart period"
-                            FontWeight="SemiBold"/>
+                            FontWeight="SemiBold"
+                            Command="{Binding Select7dChartModeCommmand}"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -348,6 +402,9 @@ Bitcoin has achieved mainstream adoption through spot ETF approvals, corporate t
                 <lvc:CartesianChart 
                     Background="Transparent"
                     x:Name="myChart"
+                    Series="{Binding HistoryPointSeries}"
+                    XAxes="{Binding XAxes}"
+                    YAxes="{Binding YAxes}"
                     ZoomMode="Both">
 
                 </lvc:CartesianChart>
@@ -355,11 +412,13 @@ Bitcoin has achieved mainstream adoption through spot ETF approvals, corporate t
 
             <!--Ticker area-->
             <ListView
+                x:Name="tickerListView"
                 Margin="5,5,5,0"
                 Grid.Row="2"
                 Background="Transparent"
                 BorderThickness="0"
-                ItemContainerStyle="{DynamicResource TickerListViewItemStyle}">
+                ItemContainerStyle="{DynamicResource TickerListViewItemStyle}"
+                ItemsSource="{Binding SelectedCoinDetails.Tickers}">
 
                 <ListView.View>
                     <GridView ColumnHeaderContainerStyle="{DynamicResource TickerListGridViewColumnHeaderStyle}">
@@ -367,7 +426,7 @@ Bitcoin has achieved mainstream adoption through spot ETF approvals, corporate t
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock 
-                                        Text="Binance" 
+                                        Text="{Binding Market.MarketName}" 
                                         MinWidth="70"
                                         Foreground="{DynamicResource CoinItemDetails.TickerItem.Name.ForegroundBrush}" 
                                         FontSize="14"/>
@@ -378,10 +437,10 @@ Bitcoin has achieved mainstream adoption through spot ETF approvals, corporate t
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock 
-                                        MinWidth="70"
-                                        Text="BTC / USDT" 
-                                        Margin="0,0,20,0"
-                                        Foreground="{DynamicResource CoinItemDetails.TickerItem.CurrencyPair.ForegroundBrush}"/>
+                                        MinWidth="100"
+                                        Foreground="{DynamicResource CoinItemDetails.TickerItem.CurrencyPair.ForegroundBrush}">
+                                        <Run Text="{Binding BaseCoin}"/><Run Text=" / "/><Run Text="{Binding TargetCurrency}"/>
+                                    </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -390,8 +449,7 @@ Bitcoin has achieved mainstream adoption through spot ETF approvals, corporate t
                                 <DataTemplate>
                                     <TextBlock 
                                         MinWidth="50"
-                                        Text="69816" 
-                                        Margin="0,0,10,0"
+                                        Text="{Binding LastTradedPriceData, Converter={StaticResource TickerMarketDataConverter}, StringFormat={}{0:N2}}" 
                                         Foreground="{DynamicResource CoinItemDetails.TickerItem.LastPrice.ForegroundBrush}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -400,9 +458,8 @@ Bitcoin has achieved mainstream adoption through spot ETF approvals, corporate t
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock 
-                                        MinWidth="70"
-                                        Text="19988.82111" 
-                                        Margin="0,0,10,0"
+                                        MinWidth="100"
+                                        Text="{Binding TotalVolumeData, Converter={StaticResource TickerMarketDataConverter}, StringFormat={}{0:N2}}" 
                                         Foreground="{DynamicResource CoinItemDetails.TickerItem.Volume.ForegroundBrush}"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -418,17 +475,15 @@ Bitcoin has achieved mainstream adoption through spot ETF approvals, corporate t
                                             Background="{DynamicResource CoinItemDetails.TickerItem.LinkButton.BackgroundBrush}"
                                             FontFamily="Segoe Fluent Icons"
                                             Content="&#xE8A7;"
-                                            FontSize="12"/>
+                                            FontSize="12"
+                                            Command="{Binding DataContext.FollowTickerLinkCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ListView}}}"
+                                            CommandParameter="{Binding}"/>
                                     </Grid>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
-
-                <ListView.Items>
-                    <ListViewItem/>
-                </ListView.Items>
             </ListView>
         </Grid>
     </Grid>

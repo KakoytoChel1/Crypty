@@ -1,6 +1,7 @@
 ﻿using Crypty.Models.DataModels;
 using Crypty.Services.IServices;
 using Crypty.ViewModels.Tools;
+using Crypty.Views.Pages;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -34,15 +35,15 @@ namespace Crypty.ViewModels
             {
                 return _requestAndLoadDataCommand ??= new RelayCommand(async (obj) =>
                 {
-                    //var coinPreviews = await CurrencyDataproviderService.GetTopPopularCoinPreviewsAsync(10);
-                    //if (coinPreviews != null)
-                    //{
-                    //    CoinPreviews.Clear();
-                    //    foreach (var coinPreview in coinPreviews)
-                    //    {
-                    //        CoinPreviews.Add(coinPreview);
-                    //    }
-                    //}
+                    var coinPreviews = await CoinDataProviderService.GetTopPopularCoinPreviewsAsync(10);
+                    if (coinPreviews != null)
+                    {
+                        CoinPreviews.Clear();
+                        foreach (var coinPreview in coinPreviews)
+                        {
+                            CoinPreviews.Add(coinPreview);
+                        }
+                    }
                 });
             }
         }
@@ -70,6 +71,8 @@ namespace Crypty.ViewModels
                     {
                         var coinId = selectedCoin.Id;
                         ApplicationState.SelectedCoinId = coinId;
+
+                        NavigationService.ChangePage<CoinDetailsPage>();
                     }
                 });
             }

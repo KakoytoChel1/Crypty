@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Tools\" />
-    <Folder Include="Views\Converters\" />
     <Folder Include="Views\Dialogs\" />
     <Folder Include="Views\Resources\Localizations\" />
   </ItemGroup>

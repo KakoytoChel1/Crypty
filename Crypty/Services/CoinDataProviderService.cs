@@ -10,7 +10,7 @@ namespace Crypty.Services
         private readonly IConfigurationService _configurationService;
         private readonly HttpClient _httpClient;
 
-        private string _targetCurrency;
+        private string _targetCurrency = "usd";
 
         public CoinDataProviderService(IConfigurationService configurationService)
         {
@@ -30,9 +30,6 @@ namespace Crypty.Services
             // Configuring api key like header
             string? apiKey = _configurationService.Get<string>("api_key");
             _httpClient.DefaultRequestHeaders.Add("x-cg-demo-api-key", apiKey);
-
-            // Configuring target currency
-            _targetCurrency = _configurationService.Get<string>("target_currency") ?? "usd";
         }
 
         public async Task<List<CoinPreview>?> GetTopPopularCoinPreviewsAsync(int number)
@@ -44,7 +41,7 @@ namespace Crypty.Services
             return result;
         }
 
-        public async Task<CoinDetails?> GetCoinDataById(string coinId)
+        public async Task<CoinDetails?> GetCoinDataByIdAsync(string coinId)
         {
             CoinDetails? result;
 
@@ -53,9 +50,26 @@ namespace Crypty.Services
             return result;
         }
 
-        public string GetCoinHistory(string coinId, int days)
+        public async Task<List<HistoryPoint>?> GetCoinHistory(string coinId, int days)
         {
-            return string.Empty;
+            List<HistoryPoint>? result = null;
+
+            HistoryRawData? rawDatarawData = await _httpClient.GetFromJsonAsync<HistoryRawData>($"coins/{coinId}/market_chart?vs_currency={_targetCurrency}&days={days}");
+
+            if(rawDatarawData != null)
+            {
+                foreach(var pricePoint in rawDatarawData.Prices)
+                {
+                    DateTime time = DateTimeOffset.FromUnixTimeMilliseconds((long)pricePoint[0]).DateTime;
+                    decimal price = (decimal)pricePoint[1];
+                    result ??= new List<HistoryPoint>();
+                    result.Add(new HistoryPoint() { Time = time, Price = price });
+                }
+
+                return result;
+            }
+
+            return result;
         }
     }
 }

@@ -116,6 +116,7 @@
 
         <Frame
             Grid.Row="1"
+            NavigationUIVisibility="Hidden"
             x:Name="rootFrame"/>
 
         <!--Menu panel-->

@@ -6,7 +6,7 @@ namespace Crypty.Views.Pages
 {
     public partial class MainPage : Page
     {
-        private MainPageViewModel _viewModel;
+        private readonly MainPageViewModel _viewModel;
 
         public MainPage(MainPageViewModel mainPageViewModel)
         {
