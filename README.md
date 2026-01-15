@@ -6,6 +6,9 @@ Project was implemented using WPF .NET Core, C# with MVVM.
 
 As API for crypto-currency information was used **CoinGecko**: https://www.coingecko.com/en/api/documentation
 
+### Important
+*API key for data provider must be set in the code of **ConfigurationService.cs** file (default config template), or in the **appConfig.json** in root directory after first start up.*
+
 ### Functionality what was implemented:
 
 * Multi-paging with navigation;
