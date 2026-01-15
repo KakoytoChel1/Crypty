@@ -93,7 +93,7 @@ namespace Crypty.Services
                 {
                     {"provider_url", "https://api.coingecko.com/api/v3/"},
                     {"api_key", "CG-QH16vTqeyT4CivqUzLwXhxRW"},
-                    {"target_currency", "usd"}
+                    {"theme", "dark" }
                 };
 
             SaveDataIntoConfiguration();

@@ -23,6 +23,7 @@
                                 Width="25"
                                 Height="25"
                                 Style="{DynamicResource SearchButtonStyle}"
+                                Command="{Binding SearchCommand}"
                                 Cursor="Hand">
                                 
                                 <TextBlock

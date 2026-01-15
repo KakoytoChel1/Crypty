@@ -21,7 +21,6 @@ namespace Crypty.ViewModels
                 new Axis
                 {
                     Labeler = value => $"${value.ToString("0.####")}",
-                    Name = "Price",
                     Position = AxisPosition.End
                 }
             };
@@ -57,6 +56,13 @@ namespace Crypty.ViewModels
         {
             get => _selectedCoinDetails;
             set => SetProperty(ref _selectedCoinDetails, value);
+        }
+
+        private string? _selectedChartMode;
+        public string? SelectedChartMode
+        {
+            get => _selectedChartMode;
+            set => SetProperty(ref _selectedChartMode, value);
         }
         #endregion
 
@@ -180,12 +186,13 @@ namespace Crypty.ViewModels
             if (SelectedCoinDetails == null)
                 return;
 
+            SelectedChartMode = "24h";
+
             XAxes = new Axis[]
             {
                 new Axis
                 {
                     Labeler = value => new DateTime((long)value).ToString("HH:mm"),
-                    Name = "Time"
                 }
             };
 
@@ -216,12 +223,13 @@ namespace Crypty.ViewModels
             if (SelectedCoinDetails == null)
                 return;
 
+            SelectedChartMode = "7d";
+
             XAxes = new Axis[]
             {
                 new Axis
                 {
                     Labeler = value => new DateTime((long)value).ToString("dd.MM HH:mm"),
-                    Name = "Time"
                 }
             };
 

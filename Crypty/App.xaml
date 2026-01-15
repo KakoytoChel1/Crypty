@@ -5,12 +5,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Views/Resources/Themes/DarkTheme.xaml"/>
+                
                 <ResourceDictionary Source="Views/Resources/Styles/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="Views/Resources/Styles/TextBoxStyles.xaml"/>
                 <ResourceDictionary Source="Views/Resources/Styles/ListStyles.xaml"/>
                 <ResourceDictionary Source="Views/Resources/Styles/ScrollStyles.xaml"/>
-
-                <ResourceDictionary Source="Views/Resources/Themes/DarkTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

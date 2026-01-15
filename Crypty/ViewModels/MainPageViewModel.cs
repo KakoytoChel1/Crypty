@@ -3,6 +3,7 @@ using Crypty.Services.IServices;
 using Crypty.ViewModels.Tools;
 using Crypty.Views.Pages;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Crypty.ViewModels
@@ -35,7 +36,7 @@ namespace Crypty.ViewModels
             {
                 return _requestAndLoadDataCommand ??= new RelayCommand(async (obj) =>
                 {
-                    var coinPreviews = await CoinDataProviderService.GetTopPopularCoinPreviewsAsync(10);
+                    var coinPreviews = await CoinDataProviderService.GetTopPopularCoinPreviewsAsync(20);
                     if (coinPreviews != null)
                     {
                         CoinPreviews.Clear();
@@ -53,9 +54,30 @@ namespace Crypty.ViewModels
         {
             get
             {
-                return _searchCommand ??= new RelayCommand((obj) =>
+                return _searchCommand ??= new RelayCommand(async(obj) =>
                 {
-                    
+                    if(!string.IsNullOrWhiteSpace(SearchRequestText) && CoinPreviews.Any())
+                    {
+                        var coinPrev = CoinPreviews.FirstOrDefault
+                        (c => c.Name.ToLower() == SearchRequestText.ToLower() || c.Symbol.ToLower() == SearchRequestText.ToLower());
+
+                        if (!await CoinDataProviderService.Ping())
+                        {
+                            MessageBox.Show($"Unable to load data, please check your internet connection.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+
+                        if (coinPrev != null)
+                        {
+                            var coinId = coinPrev.Id;
+                            ApplicationState.SelectedCoinId = coinId;
+                            NavigationService.ChangePage<CoinDetailsPage>();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Coin not found. Please check the name or symbol and try again.", "Search Result", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                    }
                 });
             }
         }
@@ -65,12 +87,18 @@ namespace Crypty.ViewModels
         {
             get
             {
-                return _selectionCoinCommand ??= new RelayCommand((obj) =>
+                return _selectionCoinCommand ??= new RelayCommand(async (obj) =>
                 {
                     if(obj is CoinPreview selectedCoin)
                     {
                         var coinId = selectedCoin.Id;
                         ApplicationState.SelectedCoinId = coinId;
+
+                        if (!await CoinDataProviderService.Ping())
+                        {
+                            MessageBox.Show($"Unable to load data, please check your internet connection.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
 
                         NavigationService.ChangePage<CoinDetailsPage>();
                     }

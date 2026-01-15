@@ -2,6 +2,7 @@
 using Crypty.Services.IServices;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Windows;
 
 namespace Crypty.Services
 {
@@ -32,44 +33,83 @@ namespace Crypty.Services
             _httpClient.DefaultRequestHeaders.Add("x-cg-demo-api-key", apiKey);
         }
 
+        public async Task<bool> Ping()
+        {
+            try
+            {
+                var response = await _httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, $"/ping"), HttpCompletionOption.ResponseHeadersRead);
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<List<CoinPreview>?> GetTopPopularCoinPreviewsAsync(int number)
         {
-            List<CoinPreview>? result;
+            try
+            {
+                List<CoinPreview>? result;
 
-            result = await _httpClient.GetFromJsonAsync<List<CoinPreview>>($"coins/markets?vs_currency={_targetCurrency}&order=market_cap_desc&per_page={number}");
+                result = await _httpClient.GetFromJsonAsync<List<CoinPreview>>($"coins/markets?vs_currency={_targetCurrency}&order=market_cap_desc&per_page={number}");
+                return result;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"Unable to load data, please check your internet connection.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
 
-            return result;
+                return null;
+            }
         }
 
         public async Task<CoinDetails?> GetCoinDataByIdAsync(string coinId)
         {
-            CoinDetails? result;
+            try
+            {
+                CoinDetails? result;
 
-            result = await _httpClient.GetFromJsonAsync<CoinDetails>($"coins/{coinId}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false");
+                result = await _httpClient.GetFromJsonAsync<CoinDetails>($"coins/{coinId}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false");
 
-            return result;
+                return result;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show($"Unable to load data, please check your internet connection.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                return null;
+            }
         }
 
         public async Task<List<HistoryPoint>?> GetCoinHistory(string coinId, int days)
         {
-            List<HistoryPoint>? result = null;
-
-            HistoryRawData? rawDatarawData = await _httpClient.GetFromJsonAsync<HistoryRawData>($"coins/{coinId}/market_chart?vs_currency={_targetCurrency}&days={days}");
-
-            if(rawDatarawData != null)
+            try
             {
-                foreach(var pricePoint in rawDatarawData.Prices)
+                List<HistoryPoint>? result = null;
+
+                HistoryRawData? rawDatarawData = await _httpClient.GetFromJsonAsync<HistoryRawData>($"coins/{coinId}/market_chart?vs_currency={_targetCurrency}&days={days}");
+
+                if (rawDatarawData != null)
                 {
-                    DateTime time = DateTimeOffset.FromUnixTimeMilliseconds((long)pricePoint[0]).DateTime;
-                    decimal price = (decimal)pricePoint[1];
-                    result ??= new List<HistoryPoint>();
-                    result.Add(new HistoryPoint() { Time = time, Price = price });
+                    foreach (var pricePoint in rawDatarawData.Prices)
+                    {
+                        DateTime time = DateTimeOffset.FromUnixTimeMilliseconds((long)pricePoint[0]).DateTime;
+                        decimal price = (decimal)pricePoint[1];
+                        result ??= new List<HistoryPoint>();
+                        result.Add(new HistoryPoint() { Time = time, Price = price });
+                    }
+
+                    return result;
                 }
 
                 return result;
             }
+            catch (Exception)
+            {
+                MessageBox.Show($"Unable to load data, please check your internet connection.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
 
-            return result;
+                return null;
+            }
         }
     }
 }

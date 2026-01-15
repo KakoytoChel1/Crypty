@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crypty"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="650" Width="800"
         x:Name="mainWindow"
         Background="{DynamicResource BackgroundBrush}"
-        StateChanged="mainWindow_StateChanged">
+        StateChanged="mainWindow_StateChanged"
+        Icon="/Views/Resources/Assets/icon.ico">
 
     <WindowChrome.WindowChrome>
         <WindowChrome 
@@ -64,6 +65,11 @@
                     Grid.Column="1"
                     Margin="10,0,0,0"
                     Orientation="Horizontal">
+
+                    <Image
+                        Height="22"
+                        Source="/Views/Resources/Assets/icon.ico"
+                        Margin="0,0,5,0"/>
 
                     <!--Title text-->
                     <TextBlock
@@ -135,11 +141,19 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+
+                    <Image
+                        Height="22"
+                        Source="/Views/Resources/Assets/icon.ico"
+                        Margin="5,0,5,0"/>
+                    
                     <TextBlock
                         Text="Crypty"
+                        VerticalAlignment="Center"
                         Foreground="{DynamicResource Titlebar.Title.ForegroundBrush}"
-                        Margin="10,0,0,0"
+                        Margin="0,0,0,0"
                         FontWeight="SemiBold"/>
                 </StackPanel>
 
@@ -180,9 +194,11 @@
 
 
                         <Button
+                            x:Name="darkThemeSwitchBtn"
                             Style="{DynamicResource MenuButtonStyle}"
                             Margin="0,0,5,0"
-                            Width="auto">
+                            Width="auto"
+                            Click="darkThemeSwitchBtn_Click">
 
                             <StackPanel
                                 Margin="5,0,5,0"
@@ -200,8 +216,10 @@
                         </Button>
 
                         <Button
+                            x:Name="lightThemeSwitchBtn"
                             Width="auto"
-                            Style="{DynamicResource MenuButtonStyle}">
+                            Style="{DynamicResource MenuButtonStyle}"
+                            Click="lightThemeSwitchBtn_Click">
 
                             <StackPanel
                                 Margin="5,0,5,0"
@@ -217,29 +235,6 @@
                                     Text="Light theme"/>
                             </StackPanel>
                         </Button>
-                    </StackPanel>
-
-                    <!--Language selection-->
-                    <StackPanel
-                        Grid.Row="1"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-
-                        <Button
-                            Style="{DynamicResource MenuButtonStyle}"
-                            Margin="0,0,5,0"
-                            Content="ENG"/>
-
-                        <Button
-                            Style="{DynamicResource MenuButtonStyle}"
-                            Margin="0,0,5,0"
-                            Content="УКР"/>
-
-                        <Button
-                            Style="{DynamicResource MenuButtonStyle}"
-                            Margin="0,0,5,0"
-                            Content="РУС"/>
                     </StackPanel>
                 </Grid>
             </Grid>

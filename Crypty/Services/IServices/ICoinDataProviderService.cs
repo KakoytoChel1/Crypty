@@ -9,5 +9,7 @@ namespace Crypty.Services.IServices
         public Task<CoinDetails?> GetCoinDataByIdAsync(string coinId);
 
         public Task<List<HistoryPoint>?> GetCoinHistory(string coinId, int days);
+
+        public Task<bool> Ping();
     }
 }

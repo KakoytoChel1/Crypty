@@ -1,19 +1,37 @@
 ﻿using Crypty.Services.IServices;
-using Crypty.Views.Pages;
 using Microsoft.Extensions.DependencyInjection;
-using System.Text;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace Crypty
 {
     public partial class MainWindow : Window
     {
+        private App _currentApplication;
+        private Collection<ResourceDictionary> _mergedResources;
+        private readonly int _currentThemeIndex = 0;
+        private IConfigurationService _configurationService;
+
         public MainWindow()
         {
             InitializeComponent();
 
             maximizeBtn.Visibility = Visibility.Visible;
             restoreBtn.Visibility = Visibility.Collapsed;
+
+            _configurationService = App.ServiceProvider.GetRequiredService<IConfigurationService>();
+
+            _currentApplication = (App)Application.Current;
+
+            _mergedResources = _currentApplication.Resources.MergedDictionaries;
+
+            
+            var currentTheme = _configurationService.Get<string>("theme");
+
+            if(currentTheme == "dark")
+                selectDark();
+            else
+                selectLight();
         }
 
         private void closeBtn_Click(object sender, RoutedEventArgs e)
@@ -52,7 +70,57 @@ namespace Crypty
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void lightThemeSwitchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            selectLight();
+            _configurationService.Set("theme", "light");
+        }
+
+        private void darkThemeSwitchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            selectDark();
+            _configurationService.Set("theme", "dark");
+        }
+
+        private void selectLight()
+        {
+            if (_mergedResources.Count > 0)
+            {
+                _mergedResources.RemoveAt(_currentThemeIndex);
+                var newDictionary = new ResourceDictionary();
+                newDictionary.Source = new Uri("Views/Resources/Themes/LightTheme.xaml", UriKind.Relative);
+                _mergedResources.Insert(_currentThemeIndex, newDictionary);
+
+                lightThemeSwitchBtn.BorderThickness = new Thickness(1);
+                darkThemeSwitchBtn.BorderThickness = new Thickness(0);
+            }
+        }
+
+        private void selectDark()
+        {
+            if (_mergedResources.Count > 0)
+            {
+                _mergedResources.RemoveAt(_currentThemeIndex);
+                var newDictionary = new ResourceDictionary();
+                newDictionary.Source = new Uri("Views/Resources/Themes/DarkTheme.xaml", UriKind.Relative);
+                _mergedResources.Insert(_currentThemeIndex, newDictionary);
+
+                lightThemeSwitchBtn.BorderThickness = new Thickness(0);
+                darkThemeSwitchBtn.BorderThickness = new Thickness(1);
+            }
+        }
+
+        private void engLanguageSwitchBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ukrLanguageSwitchBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void rusLanguageSwitchBtn_Click(object sender, RoutedEventArgs e)
         {
 
         }

@@ -17,9 +17,11 @@
 
         <!--Search Bar-->
         <TextBox
+            x:Name="searchBox"
             Margin="7,0,7,0"
-            Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-            Style="{DynamicResource SearchBarStyle}"/>
+            Text="{Binding SearchRequestText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+            Style="{DynamicResource SearchBarStyle}"
+            KeyDown="searchBox_KeyDown"/>
 
         <ListBox
             x:Name="coinListBox"
@@ -112,5 +114,40 @@
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
+
+        <Button
+            Grid.Row="1"
+            Style="{DynamicResource PrimaryButtonStyle}"
+            Width="40"
+            Height="40"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="0,0,10,10"
+            FontFamily="Segoe Fluent Icons"
+            Content="&#xE72C;"
+            FontSize="15"
+            ToolTip="Refresh list data"
+            Command="{Binding RequestAndLoadDataCommand}"/>
+
+        <TextBlock
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Text="Waiting or couldn't load any coin information :)"
+            Foreground="#808080"
+            FontSize="13">
+
+            <TextBlock.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=coinListBox, Path=HasItems}" Value="False">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Resources>
+        </TextBlock>
     </Grid>
 </Page>

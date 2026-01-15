@@ -13,12 +13,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}">
+                    <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="{DynamicResource PrimaryColorBrush}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource PrimaryControl.ForegroundBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -36,7 +37,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -57,19 +58,20 @@
         <Setter Property="Height" Value="30"/>
         <Setter Property="FontSize" Value="10"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="Background" Value="{DynamicResource MenuPanel.LanguageButton.BackgroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource MenuPanel.MenuButton.BackgroundBrush}"/>
         <Setter Property="Foreground" Value="{DynamicResource Titlebar.Button.ForegroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryColorBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource MenuPanel.LanguageButton.Hover.BackgroundBrush}"/>
+                            <Setter Property="Background" Value="{DynamicResource MenuPanel.MenuButton.Hover.BackgroundBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -81,21 +83,23 @@
         <Setter Property="FontFamily" Value="Segoe Fluent Icons"/>
         <Setter Property="FontSize" Value="8"/>
         <Setter Property="Background" Value="{DynamicResource PrimaryColorBrush}"/>
-        <Setter Property="Foreground" Value="{DynamicResource Titlebar.Button.ForegroundBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryControl.ForegroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Opacity" Value="0.7"/>
+                            <Setter Property="Foreground" Value="{DynamicResource PrimaryControl.ForegroundBrush}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Opacity" Value="1"/>
+                            <Setter Property="Foreground" Value="{DynamicResource PrimaryControl.ForegroundBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -105,14 +109,14 @@
 
     <Style x:Key="DefaultButtonStyle" TargetType="Button">
         <Setter Property="FontSize" Value="8"/>
-        <Setter Property="Background" Value="#202020"/>
+        <Setter Property="Background" Value="{DynamicResource DefaultButton.BackgroundBrush}"/>
         <Setter Property="Foreground" Value="{DynamicResource Titlebar.Button.ForegroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="5" Background="{TemplateBinding Background}">
+                    <Border CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
