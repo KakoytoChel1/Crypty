@@ -4,6 +4,10 @@ using System.Text.Json.Serialization;
 
 namespace Crypty.Models.DataModels
 {
+    /// <summary>
+    /// Represents detailed information about a cryptocurrency coin, including its identity, description, market data,
+    /// images, tickers, and historical price data
+    /// </summary>
     public class CoinDetails : ObservableObject
     {
         [JsonPropertyName("id")]

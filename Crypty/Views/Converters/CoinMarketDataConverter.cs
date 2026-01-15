@@ -3,6 +3,9 @@ using System.Windows.Data;
 
 namespace Crypty.Views.Converters
 {
+    /// <summary>
+    /// Provides a value converter that extracts the USD price from a dictionary of coin market data for use
+    /// </summary>
     public class CoinMarketDataConverter : IValueConverter
     {
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)

@@ -10,6 +10,8 @@ namespace Crypty
 {
     public partial class App : Application
     {
+        // --- Most comments were written by builded-in Visual Studio GitHub Copilot ---
+
         public static IServiceProvider ServiceProvider { get; private set; } = null!;
 
         public App()
@@ -17,6 +19,11 @@ namespace Crypty
             this.DispatcherUnhandledException += App_DispatcherUnhandledException;
         }
 
+        /// <summary>
+        /// Global exception handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             e.Handled = true;
@@ -49,6 +56,9 @@ namespace Crypty
             base.OnStartup(e);
         }
 
+        /// <summary>
+        /// Initializes and configures application services, view models, and pages for dependency injection
+        /// </summary>
         private void IntializeServices()
         {
             var serviceCollection = new ServiceCollection();
@@ -64,9 +74,6 @@ namespace Crypty
 
             serviceCollection.AddTransient<MainPage>();
             serviceCollection.AddTransient<CoinDetailsPage>();
-            #endregion
-
-            #region Dialogs
             #endregion
 
             #region Services

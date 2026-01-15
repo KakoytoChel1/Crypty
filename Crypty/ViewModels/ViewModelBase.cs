@@ -3,6 +3,10 @@ using Crypty.ViewModels.Tools;
 
 namespace Crypty.ViewModels
 {
+    /// <summary>
+    /// Provides a base class for view models that supplies access to navigation, configuration, coin data provider
+    /// services, and application state.
+    /// </summary>
     public abstract class ViewModelBase : ObservableObject
     {
         public INavigationService NavigationService { get; }

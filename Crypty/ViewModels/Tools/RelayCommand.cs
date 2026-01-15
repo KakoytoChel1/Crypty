@@ -2,6 +2,9 @@
 
 namespace Crypty.ViewModels.Tools
 {
+    /// <summary>
+    /// Default implementation of ICommand interface
+    /// </summary>
     public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;

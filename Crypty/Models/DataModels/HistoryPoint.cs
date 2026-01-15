@@ -2,6 +2,9 @@
 
 namespace Crypty.Models.DataModels
 {
+    /// <summary>
+    /// Represents historical data point with a timestamp and associated price value, for chart
+    /// </summary>
     public class HistoryPoint : ObservableObject
     {
         private DateTime _time;

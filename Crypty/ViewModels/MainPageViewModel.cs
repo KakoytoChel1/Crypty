@@ -17,8 +17,10 @@ namespace Crypty.ViewModels
 
         #region Properties
 
+        // Collection of coin previews to be displayed on the main page
         public ObservableCollection<CoinPreview> CoinPreviews { get; private set; }
 
+        // Search request text entered by the user
         private string _searchRequestText = string.Empty;
         public string SearchRequestText
         {
@@ -29,6 +31,7 @@ namespace Crypty.ViewModels
 
         #region Commands
 
+        // Command to request and load coins list
         private ICommand? _requestAndLoadDataCommand;
         public ICommand RequestAndLoadDataCommand
         {
@@ -49,6 +52,7 @@ namespace Crypty.ViewModels
             }
         }
 
+        // Command to search for a coin based on user input
         private ICommand? _searchCommand;
         public ICommand SearchCommand
         {
@@ -58,18 +62,21 @@ namespace Crypty.ViewModels
                 {
                     if(!string.IsNullOrWhiteSpace(SearchRequestText) && CoinPreviews.Any())
                     {
-                        var coinPrev = CoinPreviews.FirstOrDefault
+                        // Find the coin preview that matches name (Bitcoin) or symbol (BTC)
+                        var coinPreview = CoinPreviews.FirstOrDefault
                         (c => c.Name.ToLower() == SearchRequestText.ToLower() || c.Symbol.ToLower() == SearchRequestText.ToLower());
 
+                        // Check ability to connect to the data provider
                         if (!await CoinDataProviderService.Ping())
                         {
                             MessageBox.Show($"Unable to load data, please check your internet connection.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
 
-                        if (coinPrev != null)
+                        // If found, navigate to the coin details page
+                        if (coinPreview != null)
                         {
-                            var coinId = coinPrev.Id;
+                            var coinId = coinPreview.Id;
                             ApplicationState.SelectedCoinId = coinId;
                             NavigationService.ChangePage<CoinDetailsPage>();
                         }
@@ -82,6 +89,7 @@ namespace Crypty.ViewModels
             }
         }
 
+        // Command to handle selection (click) of a coin from the list
         private ICommand? _selectionCoinCommand;
         public ICommand SelectionCoinCommand
         {
@@ -91,9 +99,11 @@ namespace Crypty.ViewModels
                 {
                     if(obj is CoinPreview selectedCoin)
                     {
+                        // Store id of the selected coin in application state
                         var coinId = selectedCoin.Id;
                         ApplicationState.SelectedCoinId = coinId;
 
+                        // Check ability to connect to the data provider
                         if (!await CoinDataProviderService.Ping())
                         {
                             MessageBox.Show($"Unable to load data, please check your internet connection.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -105,9 +115,6 @@ namespace Crypty.ViewModels
                 });
             }
         }
-        #endregion
-
-        #region Methods
         #endregion
     }
 }

@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace Crypty.Models.DataModels
 {
+    /// <summary>
+    /// Represents raw (just after extraction) historical market data, including prices, market capitalizations, and total volumes over time
+    /// </summary>
     public class HistoryRawData : ObservableObject
     {
         private List<List<double>> _prices = null!;

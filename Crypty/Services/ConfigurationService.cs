@@ -53,6 +53,9 @@ namespace Crypty.Services
             await SaveDataIntoConfigurationAsync();
         }
 
+        /// <summary>
+        /// Asynchronously saves the current settings to the configuration file in JSON format.
+        /// </summary>
         private async Task SaveDataIntoConfigurationAsync()
         {
             var json = JsonSerializer.Serialize(_settings, new JsonSerializerOptions { WriteIndented = true });
@@ -60,6 +63,9 @@ namespace Crypty.Services
             await File.WriteAllTextAsync(_configurationFilePath, json);
         }
 
+        /// <summary>
+        /// Saves the current settings to the configuration file in JSON format.
+        /// </summary>
         private void SaveDataIntoConfiguration()
         {
             var json = JsonSerializer.Serialize(_settings, new JsonSerializerOptions { WriteIndented = true });
@@ -67,6 +73,10 @@ namespace Crypty.Services
             File.WriteAllText(_configurationFilePath, json);
         }
 
+        /// <summary>
+        /// Loads application settings from the configuration file. If the configuration file is missing or invalid,
+        /// default settings are created
+        /// </summary>
         private void LoadDataFromConfiguration()
         {
             try
@@ -87,12 +97,15 @@ namespace Crypty.Services
             }
         }
 
+        /// <summary>
+        /// Creates a default configuration file with initial settings for the application.
+        /// </summary>
         private void CreateDefaultConfigurationFile()
         {
             _settings = new Dictionary<string, string>
                 {
                     {"provider_url", "https://api.coingecko.com/api/v3/"},
-                    {"api_key", "CG-QH16vTqeyT4CivqUzLwXhxRW"},
+                    {"api_key", "!!__YOUR_API_KEY__!!"},
                     {"theme", "dark" }
                 };
 

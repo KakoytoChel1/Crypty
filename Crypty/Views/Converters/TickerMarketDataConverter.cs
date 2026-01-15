@@ -5,6 +5,9 @@ namespace Crypty.Views.Converters
 {
     public class TickerMarketDataConverter : IValueConverter
     {
+        /// <summary>
+        /// Provides a value converter that extracts the USD price from a dictionary of coin market data for use
+        /// </summary>
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is Dictionary<string, decimal> data)

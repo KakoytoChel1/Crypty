@@ -3,6 +3,10 @@ using System.Text.Json.Serialization;
 
 namespace Crypty.Models.DataModels
 {
+    /// <summary>
+    /// Represents market data for a cryptocurrency, including current prices, price change percentages, and total
+    /// trading volume across multiple currencies
+    /// </summary>
     public class CoinMarketData : ObservableObject
     {
         private Dictionary<string, decimal> _currentPriceData = null!;

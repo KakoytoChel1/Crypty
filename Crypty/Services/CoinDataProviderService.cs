@@ -91,6 +91,7 @@ namespace Crypty.Services
 
                 if (rawDatarawData != null)
                 {
+                    // Transforming raw data into HistoryPoint list
                     foreach (var pricePoint in rawDatarawData.Prices)
                     {
                         DateTime time = DateTimeOffset.FromUnixTimeMilliseconds((long)pricePoint[0]).DateTime;

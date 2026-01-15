@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace Crypty.Models.DataModels
 {
+    /// <summary>
+    /// Represents a preview of a cryptocurrency coin, including basic identification and pricing information.
+    /// </summary>
     public class CoinPreview : ObservableObject
     {
         [JsonPropertyName("id")]

@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace Crypty.Models.DataModels
 {
+    /// <summary>
+    /// Represents a market's identification data, including its name and unique identifier
+    /// </summary>
     public class TickerMarket : ObservableObject
     {
         private string _marketName = null!;

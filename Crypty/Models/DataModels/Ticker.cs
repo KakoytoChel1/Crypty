@@ -3,6 +3,10 @@ using System.Text.Json.Serialization;
 
 namespace Crypty.Models.DataModels
 {
+    /// <summary>
+    /// Represents ticker (market) information for a cryptocurrency trading pair, including pricing, volume, and market
+    /// details
+    /// </summary>
     public class Ticker : ObservableObject
     {
         private string _baseCoin = null!;

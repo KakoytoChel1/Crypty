@@ -4,6 +4,9 @@ using System.Windows.Media;
 
 namespace Crypty.ViewModels
 {
+    /// <summary>
+    /// Represents the way to store application-wide state information
+    /// </summary>
     public class AppState : ObservableObject
     {
         public AppState()
@@ -16,21 +19,12 @@ namespace Crypty.ViewModels
         public byte[] RgbCode { get; } = { 64, 93, 230 };
         public SolidColorBrush? AccentColorBrush { get; private set; }
 
-
-        private CoinDetails? _selectedCoin;
-        public CoinDetails? SelectedCoin
-        {
-            get => _selectedCoin;
-            set => SetProperty(ref _selectedCoin, value);
-        }
-
         private string? _selectedCoinId;
         public string? SelectedCoinId
         {
             get => _selectedCoinId;
             set => SetProperty(ref _selectedCoinId, value);
         }
-
         #endregion
     }
 }

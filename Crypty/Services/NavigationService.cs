@@ -30,6 +30,7 @@ namespace Crypty.Services
 
             var pageInstance = _serviceProvider.GetRequiredService<TPage>();
 
+            // Set KeepAlive to false to ensure a new instance is created each time
             pageInstance.KeepAlive = false;
 
             _frame.Navigate(pageInstance);
@@ -55,6 +56,7 @@ namespace Crypty.Services
 
             var pageInstance = _serviceProvider.GetRequiredService<TPage>();
 
+            // Set KeepAlive to false to ensure a new instance is created each time
             pageInstance.KeepAlive = false;
 
             frame.Navigate(pageInstance);

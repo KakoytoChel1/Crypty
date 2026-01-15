@@ -3,6 +3,10 @@ using System.Runtime.CompilerServices;
 
 namespace Crypty.ViewModels.Tools
 {
+    /// <summary>
+    /// Provides a base class that implements the INotifyPropertyChanged interface to support property change
+    /// notification for data binding scenarios
+    /// </summary>
     public class ObservableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;

@@ -3,6 +3,9 @@ using System.Windows.Data;
 
 namespace Crypty.Views.Converters
 {
+    /// <summary>
+    /// Provides a value converter that determines whether a coin's percentage change is positive or negative
+    /// </summary>
     public class CoinPercentageChangeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

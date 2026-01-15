@@ -15,12 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Tools\" />
-    <Folder Include="Views\Dialogs\" />
-    <Folder Include="Views\Resources\Localizations\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc6.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
   </ItemGroup>
