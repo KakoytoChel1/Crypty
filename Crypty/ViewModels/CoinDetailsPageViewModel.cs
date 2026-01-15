@@ -2,7 +2,10 @@
 using Crypty.Services.IServices;
 using Crypty.ViewModels.Tools;
 using LiveChartsCore;
+using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -17,16 +20,19 @@ namespace Crypty.ViewModels
             {
                 new Axis
                 {
-                    Labeler = value => $"${value}",
-                    Name = "Price"
+                    Labeler = value => $"${value.ToString("0.####")}",
+                    Name = "Price",
+                    Position = AxisPosition.End
                 }
             };
+
+            HistoryPointSeries = new ObservableCollection<ISeries>();
         }
 
         #region Properties
 
-        private ISeries[]? _historyPointSeries;
-        public ISeries[]? HistoryPointSeries
+        private ObservableCollection<ISeries>? _historyPointSeries;
+        public ObservableCollection<ISeries>? HistoryPointSeries
         {
             get => _historyPointSeries;
             set => SetProperty(ref _historyPointSeries, value);
@@ -65,6 +71,8 @@ namespace Crypty.ViewModels
                 return _goBackCommand ??= new RelayCommand(obj =>
                 {
                     NavigationService.GoBack();
+
+                    SelectedCoinDetails = null;
                 });
             }
         }
@@ -181,15 +189,26 @@ namespace Crypty.ViewModels
                 }
             };
 
-            HistoryPointSeries = new ISeries[]
+            if (YAxes != null && YAxes.Length > 0)
             {
+                YAxes[0].MinLimit = null;
+                YAxes[0].MaxLimit = null;
+            }
+
+            if (HistoryPointSeries != null)
+            {
+                HistoryPointSeries.Clear();
+
+                HistoryPointSeries.Add(
                 new LineSeries<HistoryPoint>
                 {
                     Values = SelectedCoinDetails.CoinHistoryPer24h,
                     Mapping = (historyPoint, chartPoint) => new(historyPoint.Time.Ticks, (double)historyPoint.Price),
-                    GeometrySize = 0
-                }
-            };
+                    GeometrySize = 0,
+                    Fill = new SolidColorPaint(new SKColor(ApplicationState.RgbCode[0], ApplicationState.RgbCode[1], ApplicationState.RgbCode[2], 50)),
+                    Stroke = new SolidColorPaint(new SKColor(ApplicationState.RgbCode[0], ApplicationState.RgbCode[1], ApplicationState.RgbCode[2]), 2)
+                });
+            }
         }
 
         private void UpdateXChartModeTo7d()
@@ -206,15 +225,26 @@ namespace Crypty.ViewModels
                 }
             };
 
-            HistoryPointSeries = new ISeries[]
+            if (YAxes != null && YAxes.Length > 0)
             {
+                YAxes[0].MinLimit = null;
+                YAxes[0].MaxLimit = null;
+            }
+
+            if (HistoryPointSeries != null)
+            {
+                HistoryPointSeries.Clear();
+
+                HistoryPointSeries.Add(
                 new LineSeries<HistoryPoint>
                 {
                     Values = SelectedCoinDetails.CoinHistoryPer7d,
-                    Mapping = (historyPoint, chartPoint) => new((double)historyPoint.Price, historyPoint.Time.Ticks),
-                    GeometrySize = 0
-                }
-            };
+                    Mapping = (historyPoint, chartPoint) => new(historyPoint.Time.Ticks, (double)historyPoint.Price),
+                    GeometrySize = 0,
+                    Fill = new SolidColorPaint(new SKColor(ApplicationState.RgbCode[0], ApplicationState.RgbCode[1], ApplicationState.RgbCode[2], 50)),
+                    Stroke = new SolidColorPaint(new SKColor(ApplicationState.RgbCode[0], ApplicationState.RgbCode[1], ApplicationState.RgbCode[2]), 2)
+                });
+            }
         }
         #endregion
     }

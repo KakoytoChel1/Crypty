@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <SolidColorBrush x:Key="PrimaryColorBrush" Color="#405de6"/>
-    <SolidColorBrush x:Key="PrimaryHoverColorBrush" Color="#4d67e3"/>
 
     <SolidColorBrush x:Key="Titlebar.BackgroundBrush" Color="#161616"/>
     <SolidColorBrush x:Key="Titlebar.Button.ForegroundBrush" Color="#ffffff"/>

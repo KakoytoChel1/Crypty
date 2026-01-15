@@ -7,6 +7,12 @@ using System.Windows;
 
 namespace Crypty
 {
+    //1. Поиск по названию или символу монеты
+    //2. Графическая визуализация выбранного режима (24ч, 7д)
+    //3. Перевлючение между темной и светлой темой
+    //4. Смена локализации приложения
+    //5. Сделать иконку для приложения
+
     public partial class App : Application
     {
         public static IServiceProvider ServiceProvider { get; private set; } = null!;
@@ -18,7 +24,8 @@ namespace Crypty
 
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            
+            e.Handled = true;
+            MessageBox.Show($"An unexpected error occurred:\n{e.Exception.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         override async protected void OnStartup(StartupEventArgs e)
